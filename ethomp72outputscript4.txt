@@ -1,0 +1,186 @@
+ERROR 1451 (23000) at line 3: Cannot delete or update a parent row: a foreign key constraint fails (`ethomp72assign2db`.`hospital`, CONSTRAINT `hospital_ibfk_1` FOREIGN KEY (`headDocLicNum`) REFERENCES `doctor` (`licenseNum`))
+ERROR 1064 (42000) at line 4: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--the delete command failed because it was trying to delete a doctor that was a ' at line 1
+--------------
+DELETE FROM doctor WHERE dateLicensed < '1965-01-01'
+--------------
+
+--------------
+--the delete command failed because it was trying to delete a doctor that was a head
+
+
+DROP VIEW IF EXISTS myview
+--------------
+
+--------------
+CREATE VIEW myview AS
+       SELECT p.fname "patFName", p.lname "patLName", d.fname "docFName", h.name "hospName"
+       FROM hospital h, doctor d, patient AS p
+       INNER JOIN treats AS t ON p.ohipNum = t.ohipNum
+       WHERE t.licenseNum IN (
+       	     SELECT headDocLicNum FROM hospital WHERE headDocStartDate > '1995-12-31'
+	     )
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+SELECT * FROM myview
+--------------
+
+patFName	patLName	docFName	hospName
+Bill	Gellar	Temperance	Victoria
+Colleen	Gellar	Temperance	Victoria
+Scotty	Bing	Temperance	Victoria
+Bill	Gellar	Temperance	St.Joseph
+Colleen	Gellar	Temperance	St.Joseph
+Scotty	Bing	Temperance	St.Joseph
+Bill	Gellar	Temperance	Victoria
+Colleen	Gellar	Temperance	Victoria
+Scotty	Bing	Temperance	Victoria
+Bill	Gellar	Joey	Victoria
+Colleen	Gellar	Joey	Victoria
+Scotty	Bing	Joey	Victoria
+Bill	Gellar	Joey	St.Joseph
+Colleen	Gellar	Joey	St.Joseph
+Scotty	Bing	Joey	St.Joseph
+Bill	Gellar	Joey	Victoria
+Colleen	Gellar	Joey	Victoria
+Scotty	Bing	Joey	Victoria
+Bill	Gellar	Ross	Victoria
+Colleen	Gellar	Ross	Victoria
+Scotty	Bing	Ross	Victoria
+Bill	Gellar	Ross	St.Joseph
+Colleen	Gellar	Ross	St.Joseph
+Scotty	Bing	Ross	St.Joseph
+Bill	Gellar	Ross	Victoria
+Colleen	Gellar	Ross	Victoria
+Scotty	Bing	Ross	Victoria
+Bill	Gellar	Mandy	Victoria
+Colleen	Gellar	Mandy	Victoria
+Scotty	Bing	Mandy	Victoria
+Bill	Gellar	Mandy	St.Joseph
+Colleen	Gellar	Mandy	St.Joseph
+Scotty	Bing	Mandy	St.Joseph
+Bill	Gellar	Mandy	Victoria
+Colleen	Gellar	Mandy	Victoria
+Scotty	Bing	Mandy	Victoria
+Bill	Gellar	Bernie	Victoria
+Colleen	Gellar	Bernie	Victoria
+Scotty	Bing	Bernie	Victoria
+Bill	Gellar	Bernie	St.Joseph
+Colleen	Gellar	Bernie	St.Joseph
+Scotty	Bing	Bernie	St.Joseph
+Bill	Gellar	Bernie	Victoria
+Colleen	Gellar	Bernie	Victoria
+Scotty	Bing	Bernie	Victoria
+Bill	Gellar	Colleen	Victoria
+Colleen	Gellar	Colleen	Victoria
+Scotty	Bing	Colleen	Victoria
+Bill	Gellar	Colleen	St.Joseph
+Colleen	Gellar	Colleen	St.Joseph
+Scotty	Bing	Colleen	St.Joseph
+Bill	Gellar	Colleen	Victoria
+Colleen	Gellar	Colleen	Victoria
+Scotty	Bing	Colleen	Victoria
+Bill	Gellar	Ben	Victoria
+Colleen	Gellar	Ben	Victoria
+Scotty	Bing	Ben	Victoria
+Bill	Gellar	Ben	St.Joseph
+Colleen	Gellar	Ben	St.Joseph
+Scotty	Bing	Ben	St.Joseph
+Bill	Gellar	Ben	Victoria
+Colleen	Gellar	Ben	Victoria
+Scotty	Bing	Ben	Victoria
+63 rows in set
+
+--------------
+SELECT * FROM doctor
+--------------
+
+licenseNum	fName	lName	specialty	dateLicensed	hospitalCode
+B0N3	Temperance	Brennan	Forensic Anthropologist	2003-05-02	ABC
+GD56	Joey	Shabado	Podiatrist	1960-06-24	BBC
+HT45	Ross	Clooney	Surgeon	1987-06-20	DDE
+JK78	Mandy	Webster	Surgeon	1990-08-08	BBC
+RD34	Bernie	Kavorikian	Urologist	1980-09-09	BBC
+SE66	Colleen	Aziz	Surgeon	1989-08-24	ABC
+YT67	Ben	Spock	Pediatrician	1955-02-20	DDE
+7 rows in set
+
+--------------
+SELECT * FROM treats
+--------------
+
+licenseNum	ohipNum
+GD56	110112113
+HT45	444555666
+JK78	444555666
+SE66	111222333
+HT45	111222333
+JK78	111222333
+GD56	333444555
+HT45	667766777
+JK78	667766777
+GD56	667766777
+HT45	111222111
+SE66	1780501
+12 rows in set
+
+--------------
+DELETE FROM doctor WHERE lname = "Clooney"
+--------------
+
+Query OK, 1 row affected
+
+--------------
+SELECT * FROM doctor
+--------------
+
+licenseNum	fName	lName	specialty	dateLicensed	hospitalCode
+B0N3	Temperance	Brennan	Forensic Anthropologist	2003-05-02	ABC
+GD56	Joey	Shabado	Podiatrist	1960-06-24	BBC
+JK78	Mandy	Webster	Surgeon	1990-08-08	BBC
+RD34	Bernie	Kavorikian	Urologist	1980-09-09	BBC
+SE66	Colleen	Aziz	Surgeon	1989-08-24	ABC
+YT67	Ben	Spock	Pediatrician	1955-02-20	DDE
+6 rows in set
+
+--------------
+SELECT * FROM treats
+--------------
+
+licenseNum	ohipNum
+GD56	110112113
+JK78	444555666
+SE66	111222333
+JK78	111222333
+GD56	333444555
+JK78	667766777
+GD56	667766777
+SE66	1780501
+8 rows in set
+
+--------------
+SELECT * FROM doctor
+--------------
+
+licenseNum	fName	lName	specialty	dateLicensed	hospitalCode
+B0N3	Temperance	Brennan	Forensic Anthropologist	2003-05-02	ABC
+GD56	Joey	Shabado	Podiatrist	1960-06-24	BBC
+JK78	Mandy	Webster	Surgeon	1990-08-08	BBC
+RD34	Bernie	Kavorikian	Urologist	1980-09-09	BBC
+SE66	Colleen	Aziz	Surgeon	1989-08-24	ABC
+YT67	Ben	Spock	Pediatrician	1955-02-20	DDE
+6 rows in set
+
+ERROR 1451 (23000) at line 30: Cannot delete or update a parent row: a foreign key constraint fails (`ethomp72assign2db`.`hospital`, CONSTRAINT `hospital_ibfk_1` FOREIGN KEY (`headDocLicNum`) REFERENCES `doctor` (`licenseNum`))
+ERROR 1064 (42000) at line 32: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--the delete command did not delete the rows because there are attributes that e' at line 1
+--------------
+DELETE FROM doctor WHERE specialty = "Surgeon"
+--------------
+
+--------------
+--the delete command did not delete the rows because there are attributes that exist as
+--------------
+
+Bye

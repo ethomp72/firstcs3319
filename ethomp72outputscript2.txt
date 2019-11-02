@@ -1,0 +1,391 @@
+--------------
+SELECT * FROM patient
+--------------
+
+Empty set
+
+--------------
+LOAD DATA
+    LOCAL
+    INFILE 'loaddata.txt'
+    INTO TABLE patient
+    FIELDS
+        TERMINATED BY ','
+--------------
+
+Query OK, 6 rows affected
+Records: 6  Deleted: 0  Skipped: 0  Warnings: 0
+
+--------------
+INSERT INTO patient (ohipNum, fname, lname) VALUES (001780501, "Ethan", "Thompson")
+--------------
+
+Query OK, 1 row affected
+
+--------------
+SELECT * FROM patient
+--------------
+
+ohipNum	fname	lname
+1780501	Ethan	Thompson
+110112113	Bill	Gellar
+111222111	Suzi	Bing
+111222333	Jon	Green
+333444555	Colleen	Gellar
+444555666	Sean	Gellar
+667766777	Scotty	Bing
+7 rows in set
+
+--------------
+SELECT * FROM doctor
+--------------
+
+Empty set
+
+--------------
+INSERT INTO doctor (licenseNum, fname, lname, specialty, dateLicensed, hospitalCode) VALUES ("RD34", "Bernie", "Kavorikian", "Urologist",'1980-09-09', NULL)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+INSERT INTO doctor (licenseNum, fname, lname, specialty, dateLicensed, hospitalCode) VALUES ("GD56", "Joey", "Shabado", "Podiatrist", '1960-06-24', NULL)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+INSERT INTO doctor (licenseNum, fname, lname, specialty, dateLicensed, hospitalCode) VALUES ("HT45", "Ross", "Clooney", "Surgeon", '1987-06-20', NULL)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+INSERT INTO doctor (licenseNum, fname, lname, specialty, dateLicensed, hospitalCode) VALUES ("YT67", "Ben", "Spock", "Pediatrician", '1955-02-20', NULL)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+INSERT INTO doctor (licenseNum, fname, lname, specialty, dateLicensed, hospitalCode) VALUES ("JK78", "Mandy", "Webster", "Surgeon", '1990-08-08', NULL)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+INSERT INTO doctor (licenseNum, fname, lname, specialty, dateLicensed, hospitalCode) VALUES ("SE66", "Colleen", "Aziz", "Surgeon", '1989-08-24', NULL)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+INSERT INTO doctor (licenseNum, fname, lname, specialty, dateLicensed, hospitalCode) VALUES ("B0N3", "Temperance", "Brennan", "Forensic Anthropologist", '2003-05-02', NULL)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+SELECT * FROM doctor
+--------------
+
+licenseNum	fName	lName	specialty	dateLicensed	hospitalCode
+B0N3	Temperance	Brennan	Forensic Anthropologist	2003-05-02	NULL
+GD56	Joey	Shabado	Podiatrist	1960-06-24	NULL
+HT45	Ross	Clooney	Surgeon	1987-06-20	NULL
+JK78	Mandy	Webster	Surgeon	1990-08-08	NULL
+RD34	Bernie	Kavorikian	Urologist	1980-09-09	NULL
+SE66	Colleen	Aziz	Surgeon	1989-08-24	NULL
+YT67	Ben	Spock	Pediatrician	1955-02-20	NULL
+7 rows in set
+
+--------------
+SELECT * FROM hospital
+--------------
+
+Empty set
+
+--------------
+INSERT INTO hospital (hospitalCode, name, city, province, numBeds, headDocLicNum, headDocStartDate) VALUES ("BBC", "St.Joseph", "London", "ON", 1000, "GD56", '1999-09-10')
+--------------
+
+Query OK, 1 row affected
+
+--------------
+INSERT INTO hospital (hospitalCode, name, city, province, numBeds, headDocLicNum, headDocStartDate) VALUES ("ABC", "Victoria", "London", "ON", 1600, "SE66", '1994-12-05')
+--------------
+
+Query OK, 1 row affected
+
+--------------
+INSERT INTO hospital (hospitalCode, name, city, province, numBeds, headDocLicNum, headDocStartDate) VALUES ("DDE", "Victoria", "Victoria", "BC", 1200, "YT67", '1997-12-07')
+--------------
+
+Query OK, 1 row affected
+
+--------------
+SELECT * FROM hospital
+--------------
+
+hospitalCode	name	city	province	numBeds	headDocLicNum	headDocStartDate
+ABC	Victoria	London	ON	1600	SE66	1994-12-05
+BBC	St.Joseph	London	ON	1000	GD56	1999-09-10
+DDE	Victoria	Victoria	BC	1200	YT67	1997-12-07
+3 rows in set
+
+--------------
+SELECT * FROM treats
+--------------
+
+Empty set
+
+--------------
+INSERT INTO treats (licenseNum, ohipNum) VALUES ("GD56", 110112113)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+INSERT INTO treats (licenseNum, ohipNum) VALUES ("HT45", 444555666)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+INSERT INTO treats (licenseNum, ohipNum) VALUES ("JK78", 444555666)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+INSERT INTO treats (licenseNum, ohipNum) VALUES ("SE66", 111222333)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+INSERT INTO treats (licenseNum, ohipNum) VALUES ("YT67", 111222333)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+INSERT INTO treats (licenseNum, ohipNum) VALUES ("JK78", 111222333)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+INSERT INTO treats (licenseNum, ohipNum) VALUES ("GD56", 333444555)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+INSERT INTO treats (licenseNum, ohipNum) VALUES ("YT67", 667766777)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+INSERT INTO treats (licenseNum, ohipNum) VALUES ("JK78", 667766777)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+INSERT INTO treats (licenseNum, ohipNum) VALUES ("GD56", 667766777)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+INSERT INTO treats (licenseNum, ohipNum) VALUES ("YT67", 111222111)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+INSERT INTO treats (licenseNum, ohipNum) VALUES ("SE66", 001780501)
+--------------
+
+Query OK, 1 row affected
+
+--------------
+SELECT * FROM treats
+--------------
+
+licenseNum	ohipNum
+GD56	110112113
+HT45	444555666
+JK78	444555666
+SE66	111222333
+YT67	111222333
+JK78	111222333
+GD56	333444555
+YT67	667766777
+JK78	667766777
+GD56	667766777
+YT67	111222111
+SE66	1780501
+12 rows in set
+
+--------------
+SELECT * FROM doctor
+--------------
+
+licenseNum	fName	lName	specialty	dateLicensed	hospitalCode
+B0N3	Temperance	Brennan	Forensic Anthropologist	2003-05-02	NULL
+GD56	Joey	Shabado	Podiatrist	1960-06-24	NULL
+HT45	Ross	Clooney	Surgeon	1987-06-20	NULL
+JK78	Mandy	Webster	Surgeon	1990-08-08	NULL
+RD34	Bernie	Kavorikian	Urologist	1980-09-09	NULL
+SE66	Colleen	Aziz	Surgeon	1989-08-24	NULL
+YT67	Ben	Spock	Pediatrician	1955-02-20	NULL
+7 rows in set
+
+--------------
+UPDATE doctor SET hospitalCode = "BBC" WHERE licenseNum = "RD34"
+--------------
+
+Query OK, 1 row affected
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+UPDATE doctor SET hospitalCode = "BBC" WHERE licenseNum = "GD56"
+--------------
+
+Query OK, 1 row affected
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+UPDATE doctor SET hospitalCode = "DDE" WHERE licenseNum = "HT45"
+--------------
+
+Query OK, 1 row affected
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+UPDATE doctor SET hospitalCode = "DDE" WHERE licenseNum = "YT67"
+--------------
+
+Query OK, 1 row affected
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+UPDATE doctor SET hospitalCode = "BBC" WHERE licenseNum = "JK78"
+--------------
+
+Query OK, 1 row affected
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+UPDATE doctor SET hospitalCode = "ABC" WHERE licenseNum = "SE66"
+--------------
+
+Query OK, 1 row affected
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+UPDATE doctor SET hospitalCode = "ABC" WHERE licenseNum = "B0N3"
+--------------
+
+Query OK, 1 row affected
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+SELECT * FROM doctor
+--------------
+
+licenseNum	fName	lName	specialty	dateLicensed	hospitalCode
+B0N3	Temperance	Brennan	Forensic Anthropologist	2003-05-02	ABC
+GD56	Joey	Shabado	Podiatrist	1960-06-24	BBC
+HT45	Ross	Clooney	Surgeon	1987-06-20	DDE
+JK78	Mandy	Webster	Surgeon	1990-08-08	BBC
+RD34	Bernie	Kavorikian	Urologist	1980-09-09	BBC
+SE66	Colleen	Aziz	Surgeon	1989-08-24	ABC
+YT67	Ben	Spock	Pediatrician	1955-02-20	DDE
+7 rows in set
+
+--------------
+SELECT * FROM patient
+--------------
+
+ohipNum	fname	lname
+1780501	Ethan	Thompson
+110112113	Bill	Gellar
+111222111	Suzi	Bing
+111222333	Jon	Green
+333444555	Colleen	Gellar
+444555666	Sean	Gellar
+667766777	Scotty	Bing
+7 rows in set
+
+--------------
+UPDATE patient SET lname = "Brown" WHERE ohipNum = 111222111
+--------------
+
+Query OK, 1 row affected
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+SELECT * FROM patient
+--------------
+
+ohipNum	fname	lname
+1780501	Ethan	Thompson
+110112113	Bill	Gellar
+111222111	Suzi	Brown
+111222333	Jon	Green
+333444555	Colleen	Gellar
+444555666	Sean	Gellar
+667766777	Scotty	Bing
+7 rows in set
+
+--------------
+SELECT * FROM treats
+--------------
+
+licenseNum	ohipNum
+GD56	110112113
+HT45	444555666
+JK78	444555666
+SE66	111222333
+YT67	111222333
+JK78	111222333
+GD56	333444555
+YT67	667766777
+JK78	667766777
+GD56	667766777
+YT67	111222111
+SE66	1780501
+12 rows in set
+
+--------------
+UPDATE treats AS t 
+SET licenseNum = (SELECT licenseNum FROM doctor WHERE lname = "Clooney")
+WHERE licenseNum = (SELECT licenseNum FROM doctor WHERE lname = "Spock")
+--------------
+
+Query OK, 3 rows affected
+Rows matched: 3  Changed: 3  Warnings: 0
+
+--------------
+SELECT * FROM treats
+--------------
+
+licenseNum	ohipNum
+GD56	110112113
+HT45	444555666
+JK78	444555666
+SE66	111222333
+HT45	111222333
+JK78	111222333
+GD56	333444555
+HT45	667766777
+JK78	667766777
+GD56	667766777
+HT45	111222111
+SE66	1780501
+12 rows in set
+
+Bye

@@ -1,0 +1,41 @@
+#list all current databases owned
+SHOW DATABASES;
+
+#delete the database called ethomp72assign2db
+DROP DATABASE IF EXISTS ethomp72assign2db;
+
+#create a data base called ethomp72assign2db
+CREATE DATABASE ethomp72assign2db;
+
+#connect to (use) that database
+USE ethomp72assign2db;
+
+GRANT USAGE ON *.* TO 'ta'@'localhost';
+DROP USER 'ta'@'localhost';
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319';
+GRANT ALL PRIVILEGES ON ethomp72assign2db.* TO 'ta'@'localhost';
+FLUSH PRIVILEGES;
+
+#list all the tables
+SHOW TABLES;
+
+#create the tables needed to solve the problem
+CREATE TABLE doctor (licenseNum VARCHAR(4), fName VARCHAR(20), lName VARCHAR(20), specialty
+       VARCHAR(30), dateLicensed DATE, hospitalCode VARCHAR(3), PRIMARY KEY (licenseNum));
+
+CREATE TABLE hospital (hospitalCode VARCHAR(3), name VARCHAR(20), city VARCHAR(20), province
+       VARCHAR(2), numBeds INT, headDocLicNum VARCHAR(4), headDocStartDate DATE,
+       PRIMARY KEY (hospitalCode), FOREIGN KEY (headDocLicNum)
+       REFERENCES doctor(licenseNum) ON DELETE RESTRICT);
+
+ALTER TABLE doctor ADD FOREIGN KEY (hospitalCode)
+      REFERENCES hospital(hospitalCode);
+
+CREATE TABLE patient (ohipNum INT(9), fname VARCHAR(20), lname VARCHAR(20),
+       PRIMARY KEY (ohipNum));
+
+CREATE TABLE treats (licenseNum VARCHAR(4), ohipNum INT(9), FOREIGN KEY (licenseNum)
+       REFERENCES doctor(licenseNum) ON DELETE CASCADE, FOREIGN KEY (ohipNum) REFERENCES patient(ohipNum));
+
+#list the tables again
+SHOW TABLES;

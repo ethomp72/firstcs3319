@@ -1,0 +1,49 @@
+USE ethomp72assign2db;
+
+-- Query 1
+SELECT lname FROM patient;
+
+-- Query 2
+SELECT DISTINCT lname FROM patient;
+
+-- Query 3
+SELECT * FROM doctor ORDER BY lname;
+
+-- Query 4
+SELECT name, hospitalCode FROM hospital WHERE numBeds > 1500;
+
+-- Query 5
+SELECT lname, fname FROM doctor
+       WHERE hospitalCode = (SELECT hospitalCode FROM hospital WHERE name = "St.Joseph");
+
+-- Query 6
+SELECT fname, lname FROM patient WHERE lname LIKE 'G%';
+
+-- Query 7
+SELECT fname, lname FROM patient AS p INNER JOIN treats AS t ON p.ohipNum = t.ohipNum
+       WHERE licenseNum = (SELECT licenseNum FROM doctor WHERE lname = "Clooney");
+
+-- Query 8
+SELECT name, city, lname FROM hospital AS h
+       INNER JOIN doctor AS d ON h.headDocLicNum = d.licenseNum;
+
+-- Query 9
+SELECT COUNT(numBeds) AS "Total Number of Beds" FROM hospital;
+
+-- Query 10
+SELECT p.fname "Patient Name", d.fname "Doctor Name" FROM doctor d, patient AS p
+       INNER JOIN treats AS t ON p.ohipNum = t.ohipNum
+       WHERE t.licenseNum IN (SELECT headDocLicNum FROM hospital);
+
+-- Query 11
+SELECT lname, fname FROM doctor
+       WHERE specialty = "Surgeon"
+       AND hospitalCode IN (SELECT hospitalCode FROM hospital WHERE name = "Victoria");
+
+-- Query 12
+SELECT fname FROM doctor WHERE licenseNum NOT IN (SELECT licenseNum FROM treats);
+
+-- Query 13
+SELECT lname, fname FROM doctor AS d
+       INNER JOIN treats AS t ON d.licenseNum = t.licenseNum
+       GROUP BY t.licenseNum HAVING COUNT(t.ohipNum) > 1;

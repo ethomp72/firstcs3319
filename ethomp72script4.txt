@@ -1,0 +1,33 @@
+USE ethomp72assign2db;
+
+DELETE FROM doctor WHERE dateLicensed < '1965-01-01';
+--the delete command failed because it was trying to delete a doctor that was a head
+-- at a hospital (foreign key)
+
+DROP VIEW IF EXISTS myview;
+
+CREATE VIEW myview AS
+       SELECT p.fname "patFName", p.lname "patLName", d.fname "docFName", h.name "hospName"
+       FROM hospital h, doctor d, patient AS p
+       INNER JOIN treats AS t ON p.ohipNum = t.ohipNum
+       WHERE t.licenseNum IN (
+       	     SELECT headDocLicNum FROM hospital WHERE headDocStartDate > '1995-12-31'
+	     )
+;
+
+SELECT * FROM myview;
+
+SELECT * FROM doctor;
+SELECT * FROM treats;
+
+DELETE FROM doctor WHERE lname = "Clooney";
+
+SELECT * FROM doctor;
+SELECT * FROM treats;
+
+SELECT * FROM doctor;
+
+DELETE FROM doctor WHERE specialty = "Surgeon";
+
+--the delete command did not delete the rows because there are attributes that exist as
+-- foreign keys in another table
