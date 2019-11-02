@@ -92,11 +92,11 @@ Victoria	Victoria	Spock
 3 rows in set
 
 --------------
-SELECT COUNT(numBeds) AS "Total Number of Beds" FROM hospital
+SELECT SUM(numBeds) AS "Total Number of Beds" FROM hospital
 --------------
 
 Total Number of Beds
-3
+3800
 1 row in set
 
 --------------

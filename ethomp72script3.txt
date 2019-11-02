@@ -28,7 +28,7 @@ SELECT name, city, lname FROM hospital AS h
        INNER JOIN doctor AS d ON h.headDocLicNum = d.licenseNum;
 
 -- Query 9
-SELECT COUNT(numBeds) AS "Total Number of Beds" FROM hospital;
+SELECT SUM(numBeds) AS "Total Number of Beds" FROM hospital;
 
 -- Query 10
 SELECT p.fname "Patient Name", d.fname "Doctor Name" FROM doctor d, patient AS p
